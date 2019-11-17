@@ -3,8 +3,7 @@
 
 #include "Edge.hpp"
 
-class Vertex
-{
+class Vertex {
 public:
     EdgeList edgeList;
     Vertex* nVertex;
@@ -13,13 +12,22 @@ public:
  
     Vertex(int, Vertex *);
     ~Vertex();
+
+
+    Vertex  operator=(const Vertex&);
 };
 
+/*
+*   Constructor de initializare cu parametri
+*/
 Vertex::Vertex(int value = -1, Vertex* nVertex = nullptr) {
     this->value = value;
     this->nVertex = nVertex;
 }
 
+/*
+*   Destructor care imi apeleaza si destructorul listei de adiacenta
+*/
 Vertex::~Vertex() {
     this->edgeList.~EdgeList();
     if(nVertex != nullptr)
@@ -27,8 +35,17 @@ Vertex::~Vertex() {
     nVertex = nullptr;
 }
 
-class VertexList
-{
+/*
+*   Am supraincarcat operatorul de atribuire pentru a ma asigura 
+*   ca pointerii vor fi conectati corect in urma unei atribuiri de obiecte.
+*/
+Vertex Vertex::operator=(const Vertex& other) {
+    this->edgeList = other.edgeList;
+    this->nVertex = other.nVertex;
+    this->value = other.value;
+}
+
+class VertexList {
 public:
     Vertex* vertex;
     int     size;
@@ -41,14 +58,22 @@ public:
     bool    contains(int);
     bool    isEmpty();
     int     popFront();
+    int     operator[](int);
 
 friend  ostream& operator<<(ostream&, const VertexList &);
 };
 
+/*
+*   Contructor de initializare fara parametri.
+*/
 VertexList::VertexList() {
     this->vertex = nullptr;
     this->size = 0;
 }
+
+/*
+*   Destructor recursiv
+*/
 
 VertexList::~VertexList() {
     delete this->vertex;
@@ -56,9 +81,22 @@ VertexList::~VertexList() {
     this->size = 0;
 }
 
+/*
+*   Metoda care imi verifica daca lista de Vertexuri este goala.
+*
+*   @return ->  True daca e goala, False in caz contrar.
+*/
+
 bool VertexList::isEmpty() {
     return this->size == 0;
 }
+
+/*
+*   Verifica daca lista contine o instanta cu valoarea primita ca parametru.   
+*
+*   @param  value   ->  Valoarea ce este cautata
+*   @return ->  True daca e prezenta, Fals in caz contrar.
+*/
 
 bool VertexList::contains(int value) {
     Vertex* crt;
@@ -80,6 +118,10 @@ bool VertexList::contains(int value) {
     return false;
 }
 
+/*
+*	Metoda care imi adauga un Vertex la capatul listei
+*/
+
 void VertexList::addVertex(int value) {
     if (this->isEmpty()) {
         this->vertex = new Vertex(value);
@@ -98,6 +140,14 @@ void VertexList::addVertex(int value) {
     }
     this->size++;
 }
+
+/*
+*	Metoda imi returneaza un nod din lista mea care are valoarea solicitata.
+*
+*	@param	value	-> valoarea cautata.
+*	@return	Un pointer catre Vertex-ul gasit, nullptr daca nu exista un astfel
+*		de nod cu astfel de valoare.
+*/
 
 Vertex* VertexList::getVertex(int value) {
         Vertex* crt;
@@ -119,6 +169,12 @@ Vertex* VertexList::getVertex(int value) {
     return nullptr;
 }
 
+/*
+*	Metoda imi sterge primul element din capul listei
+*
+*	@return	->	valoarea ce a fost stearsa.
+*/
+
 int VertexList::popFront() {
     int toRet = -1;
     if ( !(this->isEmpty()) ) {
@@ -134,6 +190,34 @@ int VertexList::popFront() {
     }
     return toRet;
 }
+
+/*
+*	Supraincarcarea operatorului de indexare pentru a accesa mai usor elementele
+*	 din lista mea.
+*	
+*	@param	index ->	Pozitia pe care dorim sa o accesam  0 <= index < size.
+*	@return	Valoarea ce a fost identificata pe pozitia solicitata.
+*/
+
+int     VertexList::operator[](int index) {
+    Vertex* crt;
+    if(index < this->size && index >= 0) {
+        crt = this->vertex;
+        while(index > 0) {
+            crt = crt->nVertex;
+            index--;
+        }
+    }
+    else {
+        cerr << "Index : " << index << " out of bounds\n";
+        exit(1);
+    }
+    return crt->value;
+}
+
+/*
+*	Supraincarcarea operatorului de introducere in stream.
+*/
 
 ostream& operator<<(ostream& os, const VertexList& list) {
     int size = list.size;

@@ -13,18 +13,30 @@ public:
     Edge();
     Edge(int, Edge *);
     Edge(const Edge *);
-    ~Edge();
+    ~Edge();    
 };
+
+/*
+*   Contructor de initializare cu parametri.
+*/
 
 Edge::Edge(int value = -1, Edge* next = nullptr) {
     this->value = value;
     this->next = next;
 }
 
+/*
+*   Contructor de copiere.
+*/
+
 Edge::Edge(const Edge* edge) {
     this->value = edge->value;
     this->next = edge->next;
 }
+
+/*
+*   Destructor recursiv.
+*/
 
 Edge::~Edge()
 {
@@ -40,20 +52,30 @@ public:
     
     EdgeList();
     ~EdgeList();
+
+
     void    addEdge(int);
     void    removeEdge(int);
     int     popFront();
+    int     operator[](int);
     bool    contains(int);
     bool    isEmpty();
 
 friend  ostream& operator<<(ostream&, const EdgeList &);
 };
 
+/*
+*   Constructor de initializare fara parametri.
+*/
+
 EdgeList::EdgeList() {
-    // cout << "Constructor\n";
     this->edge = nullptr;
     this->size = 0;
 }
+
+/*
+*   Destructor
+*/
 
 EdgeList::~EdgeList()
 {
@@ -62,9 +84,22 @@ EdgeList::~EdgeList()
     this->size = 0;
 }
 
+/*
+*   Metoda care imi verifica daca lista de Edge-uri este goala.
+*
+*   @return ->  True daca e goala, False in caz contrar.
+*/
+
 bool EdgeList::isEmpty() {
     return size == 0;
 }
+
+/*
+*   Verifica daca lista contine o instanta cu valoarea primita ca parametru.   
+*
+*   @param  value   ->  Valoarea ce este cautata
+*   @return ->  True daca e prezenta, Fals in caz contrar.
+*/
 
 bool    EdgeList::contains(int value) {
     if( !(this->isEmpty()) ) {
@@ -80,6 +115,10 @@ bool    EdgeList::contains(int value) {
     }
     return false;
 }
+
+/*
+*	Metoda care imi adauga un Edge la capatul listei
+*/
 
 void    EdgeList::addEdge(int value) {
     if (this == nullptr || this->isEmpty()) {
@@ -99,6 +138,11 @@ void    EdgeList::addEdge(int value) {
     }
     this->size++;
 }
+
+/*
+*   Metoda respectiva imi sterge din lista mea Edge-ul cu valoarea
+*       pe care o primeste ca parametru.
+*/
 
 void    EdgeList::removeEdge(int value) {
     if (this->contains(value) && !this->isEmpty()) {
@@ -124,6 +168,12 @@ void    EdgeList::removeEdge(int value) {
     this->size--;
 }
 
+/*
+*	Metoda imi sterge primul element din capul listei
+*
+*	@return	->	valoarea ce a fost stearsa.
+*/
+
 int     EdgeList::popFront() {
     int toRet = -1;
     if ( !(this->isEmpty()) ) {
@@ -140,6 +190,35 @@ int     EdgeList::popFront() {
     return toRet;
 }
 
+/*
+*	Supraincarcarea operatorului de indexare pentru a accesa mai usor elementele
+*	 din lista mea.
+*	
+*	@param	index ->	Pozitia pe care dorim sa o accesam  0 <= index < size.
+*	@return	Valoarea ce a fost identificata pe pozitia solicitata.
+*/
+
+int     EdgeList::operator[](int index) {
+    Edge* crt;
+
+    if(index < this->size && index >= 0) {
+        crt = this->edge;
+        while(index > 0) {
+            crt = crt->next;
+            index--;
+        }
+    }
+    else {
+        cerr << "Index : " << index << " out of bounds\n";
+        exit(1);
+    }
+    return crt->value;
+}
+
+/*
+*	Supraincarcarea operatorului de introducere in stream.
+*/
+
 ostream& operator<<(ostream& os, const EdgeList& list) {
     int size = list.size;
     os << "{ ";
@@ -154,7 +233,5 @@ ostream& operator<<(ostream& os, const EdgeList& list) {
     os << " }";
     return os;
 }
-
-
 
 #endif // !Edge_H
