@@ -234,7 +234,7 @@ ostream& operator<<(ostream& os, const VertexList& list) {
             if( !(crt->edgeList.isEmpty()) ) {
                 os << crt->edgeList;
             }
-            os << "\n";
+            os <<"\n";
             crt = crt->nVertex;
             size--;
         }

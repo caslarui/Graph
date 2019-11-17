@@ -35,7 +35,8 @@ int main() {
         default:
             break;
         }
+        // graph.print();
+        // cout << endl;
     }
-    graph.print();
     return 0;
 }

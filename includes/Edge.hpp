@@ -40,9 +40,9 @@ Edge::Edge(const Edge* edge) {
 
 Edge::~Edge()
 {
-    if(next)
-        delete next;
-    next = nullptr;
+    if(this->next)
+        delete this->next;
+    this->next = nullptr;
 }
 
 class EdgeList {
@@ -79,7 +79,8 @@ EdgeList::EdgeList() {
 
 EdgeList::~EdgeList()
 {
-    delete this->edge;
+    if (this->edge)
+        delete this->edge;
     this->edge = nullptr;
     this->size = 0;
 }

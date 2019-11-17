@@ -79,7 +79,16 @@ void Graph::removeVertex(int value) {
 
         // Daca nodul pe care il vom sterge este defapt capul listei, atunci facem un Pop().
         if (crt == this->graph.vertex) {
-            this->graph.vertex->edgeList.popFront();
+            if (crt->edgeList.isEmpty()) {
+                this->graph.popFront();
+            }
+            else {
+                while ( !(crt->edgeList.isEmpty()) ) {
+                    this->graph.getVertex(crt->edgeList.popFront())->edgeList.removeEdge(value);
+                }
+                this->graph.popFront();
+                return ;
+            }
         }
         else {
             prev->nVertex = crt->nVertex;
@@ -91,8 +100,10 @@ void Graph::removeVertex(int value) {
 
         // Daca Vertex-ul pe care il vom sterge are legaturi spre alte noduri, sau alte noduri
         // sunt legate cu el, trebuie sa le stergem.
-        while ( !(crt->edgeList.isEmpty()) ) {
-            this->graph.getVertex(crt->edgeList.popFront())->edgeList.removeEdge(value);
+        if (crt->edgeList.edge != nullptr) {
+            while ( !(crt->edgeList.isEmpty()) ) {
+                this->graph.getVertex(crt->edgeList.popFront())->edgeList.removeEdge(value);
+            }
         }
 
         // Dupa ce am eliberat Vertex-ul si nu mai are legaturi putem sa il stergem.
