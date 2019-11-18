@@ -19,10 +19,8 @@ tip_operatie_n [nr1] [nr2]
 
 unde:  
 - n - numarul de operatii ce se vor efectua asupra grafului;  
-- tip_operatie - 1, 2, 3, 4, sau 5 ce reprezinta adaugare nod, adaugare muchie,  
-stergere nod, stergere muchie si respectiv este sau nu arbore;  
-- nr1, nr2 - numere ce reprezinta numarul nodului, iar un functie de tipul operatiei  
-nu va fi niciun numar, unul singur sau doua numere. Pt operatiile 2 si 4 cele doua noduri vor forma o muchie  
+- tip_operatie - 1, 2, 3, 4, sau 5 ce reprezinta adaugare nod, adaugare muchie, stergere nod, stergere muchie si respectiv este sau nu arbore;  
+- nr1, nr2 - numere ce reprezinta numarul nodului, iar un functie de tipul operatiei nu va fi niciun numar, unul singur sau doua numere. Pt operatiile 2 si 4 cele doua noduri vor forma o muchie  
 
 # Utilizare
 ```python
@@ -36,4 +34,4 @@ make clean      # Sterge fisierele .o si executabilul
 gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)
 
 # Licence
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT] Caslaru Ion, Facultatea de Electronica, Telecomunicatii si Tehnologia Informatiei, Universitatea Politehnica din Bucuresti.
