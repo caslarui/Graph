@@ -42,6 +42,8 @@ void    Graph::addVertex(int value) {
 void    Graph::addEdge(int source, int destination) {
     if (graph.contains(source)) {
         if (graph.contains(destination)) {
+            if (source == destination)
+                return ;
             graph.getVertex(source)->edgeList.addEdge(destination);
             graph.getVertex(destination)->edgeList.addEdge(source);
         }
@@ -66,7 +68,7 @@ void Graph::removeVertex(int value) {
     // Verificam daca graful nu este vid si daca acesta contine valoarea pe care ne dorim sa o stergem.
     if ( !(this->graph.isEmpty()) && (this->graph.contains(value) ) ) {
         // Pentru a evita erorile de link editare care ar putea sa apara in urma stergerii
-        //  am ales sa parcurg lista prin intermediul a 2 pointeri. Cu primul parcurg pana cand nu identific
+        // am ales sa parcurg lista prin intermediul a 2 pointeri. Cu primul parcurg pana cand nu identific
         // nodul ce il voi sterge, iar cu precedentul refac legaturile astfel incat sa nu pierd date.
         Vertex* crt = this->graph.vertex;
         Vertex* prev = this->graph.vertex;
@@ -111,7 +113,7 @@ void Graph::removeVertex(int value) {
         this->graph.size--;
     }
     else {
-        cerr << "No vertex with value : { " << value << " }\n";
+        cerr << "No vertex with value : [ " << value << " ]\n";
     }
 }
 
@@ -206,6 +208,7 @@ bool    Graph::_isCycleUtil(int currVertex, bool* visited, int parent) {
 */
 
 bool    Graph::isTree() {
+    
     if (this->graph.isEmpty())
         return true;
 

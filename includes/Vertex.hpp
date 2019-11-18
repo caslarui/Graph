@@ -20,6 +20,7 @@ public:
 /*
 *   Constructor de initializare cu parametri
 */
+
 Vertex::Vertex(int value = -1, Vertex* nVertex = nullptr) {
     this->value = value;
     this->nVertex = nVertex;
@@ -28,6 +29,7 @@ Vertex::Vertex(int value = -1, Vertex* nVertex = nullptr) {
 /*
 *   Destructor care imi apeleaza si destructorul listei de adiacenta
 */
+
 Vertex::~Vertex() {
     this->edgeList.~EdgeList();
     if(nVertex != nullptr)
@@ -39,6 +41,7 @@ Vertex::~Vertex() {
 *   Am supraincarcat operatorul de atribuire pentru a ma asigura 
 *   ca pointerii vor fi conectati corect in urma unei atribuiri de obiecte.
 */
+
 Vertex Vertex::operator=(const Vertex& other) {
     this->edgeList = other.edgeList;
     this->nVertex = other.nVertex;
@@ -66,6 +69,7 @@ friend  ostream& operator<<(ostream&, const VertexList &);
 /*
 *   Contructor de initializare fara parametri.
 */
+
 VertexList::VertexList() {
     this->vertex = nullptr;
     this->size = 0;
@@ -134,7 +138,7 @@ void VertexList::addVertex(int value) {
             crt->nVertex = new Vertex(value);
         }
         else {
-            cerr << "Vertex with value { " << value << " } already exists\n";
+            cerr << "Vertex with value [ " << value << " ] already exists\n";
             return ;
         }
     }
