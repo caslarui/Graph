@@ -26,12 +26,10 @@ void    Graph::addEdge(int source, int destination) {
             graph.getVertex(destination)->edgeList.addEdge(source);
         }
         else {
-            // cerr << "No such destination : { " << destination << " }\n";
             return ; 
         }
     }
     else {
-        // cerr << "No such source : { " << source << " }\n";
         return ; 
     }
 }
@@ -61,6 +59,7 @@ void Graph::removeVertex(int value) {
         if (crt == this->graph.vertex) {
             if (crt->edgeList.isEmpty()) {
                 this->graph.popFront();
+                return ;
             }
             else {
                 while ( !(crt->edgeList.isEmpty()) ) {
@@ -107,12 +106,10 @@ void Graph::removeEdge(int source, int destination) {
             graph.getVertex(destination)->edgeList.removeEdge(source);
         }
         else {
-            // cerr << "No such destination : { " << destination << " }\n";
             return ; 
         }
     }
     else {
-        // cerr << "No such source : { " << source << " }\n";
         return ; 
     }
 }
@@ -187,8 +184,8 @@ bool    Graph::_isCycleUtil(int currVertex, bool* visited, int parent) {
 
 bool    Graph::isTree() {
     
-    if (this->graph.isEmpty())
-        return true;
+    if (this->graph.isEmpty() || this->graph.size == 1)
+        return false;
 
     bool* visited = new bool[this->graph.size];
 
@@ -247,9 +244,6 @@ int     Graph::_valueById(int id) {
             if (id == i)
                 return this->graph[i];
         }
-    }
-    else {
-        // cerr << "ID : " << id << " out of bounds\n";
     }
     return -1;
 }

@@ -75,9 +75,6 @@ bool    EdgeList::contains(int value) {
             crt =  crt->next;
         }
     }
-    else {
-        // cerr << "Edge List is empty\n";
-    }
     return false;
 }
 
@@ -97,7 +94,6 @@ void    EdgeList::addEdge(int value) {
             crt->next = new Edge(value);
         }
         else {
-            // cerr << "Edge with value { " << value << " } already exists\n";
             return ;
         }
     }
@@ -127,7 +123,6 @@ void    EdgeList::removeEdge(int value) {
         delete crt;
     }
     else {
-        // cerr << "No edge with such value : { " << value <<" }\n";
         return ;
     }
     this->size--;
@@ -148,9 +143,6 @@ int     EdgeList::popFront() {
         toRet = tmp->value;
         delete tmp;
         this->size--;
-    }
-    else {
-        // cerr << "Edge list is empty, no elements to pop" << endl;
     }
     return toRet;
 }
@@ -174,8 +166,7 @@ int     EdgeList::operator[](int index) {
         }
     }
     else {
-        // cerr << "Index : " << index << " out of bounds\n";
-        exit(1);
+        return -1;
     }
     return crt->value;
 }

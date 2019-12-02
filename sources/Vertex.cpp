@@ -79,10 +79,8 @@ bool VertexList::contains(int value) {
     }
     else {
         if (crt == nullptr) {
-            // cerr << "No vertex with value : { " << value << " } in list\n";
             return false;
         }
-        // cerr << "Edge List is empty\n";
     }
     return false;
 }
@@ -103,7 +101,6 @@ void VertexList::addVertex(int value) {
             crt->nVertex = new Vertex(value);
         }
         else {
-            // cerr << "Vertex with value [ " << value << " ] already exists\n";
             return ;
         }
     }
@@ -130,10 +127,8 @@ Vertex* VertexList::getVertex(int value) {
     }
     else {
         if (crt == nullptr) {
-            // cerr << "No vertex with value : { " << value << " } in list\n";
             return nullptr;
         }
-        // cerr << "Edge List is empty\n";
     }
     return nullptr;
 }
@@ -153,9 +148,6 @@ int VertexList::popFront() {
         toRet = tmp->value;
         delete tmp;
         this->size--;
-    }
-    else {
-        // cerr << "Edge list is empty, no elements to pop" << endl;
     }
     return toRet;
 }
@@ -178,8 +170,7 @@ int     VertexList::operator[](int index) {
         }
     }
     else {
-        // cerr << "Index : " << index << " out of bounds\n";
-        exit(1);
+        return -1;
     }
     return crt->value;
 }

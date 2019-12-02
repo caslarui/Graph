@@ -24,10 +24,11 @@ unde:
 
 # Utilizare
 ```python
-make            # Creaza executabilul graph
-make leak       # Verifica daca nu exista leak errors
-make origins    # Indica originea erorilor de memorie
-make clean      # Sterge fisierele .o si executabilul
+make                    # Creaza executabilul graph
+make leak               # Verifica daca nu exista leak errors
+make origins            # Indica originea erorilor de memorie
+make clean              # Sterge fisierele .o si executabilul
+bash tema-checker.sh    # Ruleaza checkerul
 ```
 
 # Compilator
